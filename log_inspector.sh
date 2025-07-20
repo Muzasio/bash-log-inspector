@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# PRO Log Inspector (Industry-Ready Edition)
-# Bash log analyzer with modular design, CLI flags, JSON export, scrubbing, syslog support, and automation features
 
 # ========== GLOBAL CONFIG ==========
 REPORT_DIR="$HOME/log_reports"
@@ -67,7 +65,7 @@ generate_full_report() {
     echo "🛠️ LOG INSPECTOR PRO (Full Report)" > "$REPORT_FILE"
     echo "🔍 File: $LOG_FILE" >> "$REPORT_FILE"
 
-    echo -e "\n🔐 [SENSITIVE INFO CHECK]" >> "$REPORT_FILE"
+    echo -e "\n [SENSITIVE INFO CHECK]" >> "$REPORT_FILE"
     SENSITIVE_HITS=$(grep -iE "$HOSTNAME|$USERNAME" "$LOG_FILE" | tee -a "$REPORT_FILE" | wc -l)
 
     declare -A CATEGORY_PATTERNS=(
@@ -81,7 +79,7 @@ generate_full_report() {
   ["Aborted Jobs"]="aborted|terminated unexpectedly"
 )
 
-echo -e "\n🔥 [CATEGORIZED CRITICAL EVENTS]" >> "$REPORT_FILE"
+echo -e "\n [CATEGORIZED CRITICAL EVENTS]" >> "$REPORT_FILE"
 
 declare -A CATEGORY_COUNTS
 
@@ -93,7 +91,7 @@ for category in "${!CATEGORY_PATTERNS[@]}"; do
   if [[ -n "$MATCHES" ]]; then
     COUNT=$(echo "$MATCHES" | wc -l)
     CATEGORY_COUNTS["$category"]=$COUNT
-    echo -e "\n📂 $category ($COUNT unique occurrences):" >> "$REPORT_FILE"
+    echo -e "\n $category ($COUNT unique occurrences):" >> "$REPORT_FILE"
     echo "$MATCHES" >> "$REPORT_FILE"
   fi
 done
@@ -148,7 +146,7 @@ run_mode() {
             [[ $GEN_JSON == true ]] && generate_json_report
             ;;
         minimal)
-            echo -e "\n🔥 [CRITICAL EVENTS]" > "$REPORT_FILE"
+            echo -e "\n [CRITICAL EVENTS]" > "$REPORT_FILE"
             grep -iE "fail|error|panic|crash|segfault|fatal|timeout|aborted|unauthorized|denied|terminated|unreachable|core dumped|rejected|invalid user|proxy error" "$LOG_FILE" | sort | uniq >> "$REPORT_FILE"
             ;;
         custom)
@@ -187,6 +185,6 @@ load_log_file
 run_mode
 
 log_info "Log inspection complete for file $LOG_FILE"
-echo "✅ Done. Report saved to $REPORT_DIR"
-[[ $GEN_SCRUB == true ]] && echo "🧼 Scrubbed: $SCRUBBED_FILE"
-[[ $GEN_JSON == true ]] && echo "📊 JSON: $JSON_FILE"
+echo " Done. Report saved to $REPORT_DIR"
+[[ $GEN_SCRUB == true ]] && echo " Scrubbed: $SCRUBBED_FILE"
+[[ $GEN_JSON == true ]] && echo " JSON: $JSON_FILE"
