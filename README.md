@@ -11,10 +11,9 @@ A modular and powerful log inspection tool written in pure Bash for Linux system
 
 ## 🚀 Usage
 
-```bash
-./pro_log_inspector.sh -f /var/log/syslog -m full -s -j
+<pre> ```bash ./pro_log_inspector.sh -f /var/log/syslog -m full -s -j ``` </pre>
 
-##Options:
+## Options:
 -f FILE → Log file to analyze
 
 -m MODE → full, minimal, custom, syslog
@@ -27,5 +26,5 @@ A modular and powerful log inspection tool written in pure Bash for Linux system
 
 -h → Help
 
-##📁 Output
+## 📁 Output
 Reports saved to ~/log_reports with timestamped names.
