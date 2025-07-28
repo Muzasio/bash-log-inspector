@@ -1,4 +1,4 @@
-# 🛠️ PRO Log Inspector (Industry-Ready Bash Script)
+# 🛠️ PRO Log Inspector (Bash Script)
 
 A modular and powerful log inspection tool written in pure Bash for Linux systems. It can categorize critical events, scrub sensitive data, and export structured JSON reports.
 
